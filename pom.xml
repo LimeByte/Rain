@@ -89,10 +89,10 @@
                                     </jre>
                                     <!-- <icon>${basedir}/src/main/resources/package/icon.ico</icon>  -->
                                     <versionInfo>
-                                        <fileVersion>${project.version}.${buildNumber}</fileVersion>
-                                        <txtFileVersion>${project.version}.${buildNumber}</txtFileVersion>
-                                        <productVersion>${project.version}.${buildNumber}</productVersion>
-                                        <txtProductVersion>${project.version}.${buildNumber}</txtProductVersion>
+                                        <fileVersion>${project.version}</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <productVersion>${project.version}</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
                                         <fileDescription>${project.name}</fileDescription>
                                         <productName>${project.name}</productName>
                                         <copyright>LimeByte 2012</copyright>
