@@ -14,7 +14,6 @@ public class Main {
         game.frame.setResizable(false);
         game.frame.setLocationRelativeTo(null);
         game.frame.setVisible(true);
-        game.frame.setAlwaysOnTop(true);
         game.setFocusable(true);
 
         game.start();
