@@ -135,19 +135,19 @@ public class Game extends Canvas implements Runnable {
         }
 
         if (keyListener.left) {
-            x -= moveSpeed / 10;
-        }
-
-        if (keyListener.right) {
             x += moveSpeed / 10;
         }
 
+        if (keyListener.right) {
+            x -= moveSpeed / 10;
+        }
+
         if (keyListener.up) {
-            y -= moveSpeed / 10;
+            y += moveSpeed / 10;
         }
 
         if (keyListener.down) {
-            y += moveSpeed / 10;
+            y -= moveSpeed / 10;
         }
     }
 
