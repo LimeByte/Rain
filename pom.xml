@@ -7,7 +7,7 @@
     <name>Tank 2D</name>
     <groupId>me.limebyte</groupId>
     <artifactId>tank2d</artifactId>
-    <version>0.2.1.0</version>
+    <version>0.2.3.0</version>
     <inceptionYear>2012</inceptionYear>
     <description>My first Java 2D game</description>
     
