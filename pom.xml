@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
   
     <!-- Project information -->
-    <name>Tank 2D</name>
+    <name>Rain</name>
     <groupId>me.limebyte</groupId>
-    <artifactId>tank2d</artifactId>
-    <version>0.2.4.0</version>
+    <artifactId>rain</artifactId>
+    <version>0.3.4.0</version>
     <inceptionYear>2012</inceptionYear>
     <description>My first Java 2D game</description>
     

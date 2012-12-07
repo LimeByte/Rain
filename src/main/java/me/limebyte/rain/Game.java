@@ -1,4 +1,4 @@
-package me.limebyte.tank2d;
+package me.limebyte.rain;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -11,8 +11,8 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import me.limebyte.tank2d.graphics.Screen;
-import me.limebyte.tank2d.input.KeyboardListener;
+import me.limebyte.rain.graphics.Screen;
+import me.limebyte.rain.input.KeyboardListener;
 
 public class Game extends Canvas implements Runnable {
 
@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable {
     public static int width = 290;
     public static int height = width / 16 * 9;
     public static int scale = 3;
-    public static final String TITLE = "Tank 2D";
+    public static final String NAME = "Rain";
     private static final int FPS = 60;
 
     private Thread thread;
@@ -37,7 +37,6 @@ public class Game extends Canvas implements Runnable {
     private int currentTPS = FPS;
 
     private int x = 0, y = 0;
-    private int moveSpeed = 20;
 
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale);
@@ -116,7 +115,7 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 12));
-        g.drawString("Tank 2D - Prototype", 10, 20);
+        g.drawString(NAME + " - Prototype", 10, 20);
         g.drawString(currentFPS + " fps, " + currentTPS + " ticks", 10, 40);
 
         g.dispose();
@@ -126,28 +125,20 @@ public class Game extends Canvas implements Runnable {
     private void update() {
         keyListener.update();
 
-        if (keyListener.faster) {
-            moveSpeed++;
-        }
-
-        if (keyListener.slower) {
-            moveSpeed--;
-        }
-
         if (keyListener.left) {
-            x += moveSpeed / 10;
+            x -= 2;
         }
 
         if (keyListener.right) {
-            x -= moveSpeed / 10;
+            x += 2;
         }
 
         if (keyListener.up) {
-            y += moveSpeed / 10;
+            y -= 2;
         }
 
         if (keyListener.down) {
-            y -= moveSpeed / 10;
+            y += 2;
         }
     }
 

@@ -1,4 +1,4 @@
-package me.limebyte.tank2d.graphics;
+package me.limebyte.rain.graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

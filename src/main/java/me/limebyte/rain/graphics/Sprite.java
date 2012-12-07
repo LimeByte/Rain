@@ -1,12 +1,15 @@
-package me.limebyte.tank2d.graphics;
+package me.limebyte.rain.graphics;
+
+import java.awt.Color;
 
 public class Sprite {
 
-    private final int SIZE;
+    public final int SIZE;
     private int x, y;
-    private int[] pixels;
+    public int[] pixels;
     private SpriteSheet sheet;
 
+    public static Sprite voidSprite = new Sprite(16, new Color(0x1B87E0));
     public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.terrain);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
@@ -18,6 +21,12 @@ public class Sprite {
         load();
     }
 
+    public Sprite(int size, Color colour) {
+        this.SIZE = size;
+        this.pixels = new int[SIZE * SIZE];
+        loadColour(colour);
+    }
+
     private void load() {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
@@ -26,11 +35,11 @@ public class Sprite {
         }
     }
 
-    public int[] getPixels() {
-        return pixels;
-    }
-
-    public int getSize() {
-        return SIZE;
+    private void loadColour(Color colour) {
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++) {
+                pixels[x + y * SIZE] = colour.getRGB();
+            }
+        }
     }
 }

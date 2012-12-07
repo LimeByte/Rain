@@ -1,4 +1,4 @@
-package me.limebyte.tank2d.input;
+package me.limebyte.rain.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
