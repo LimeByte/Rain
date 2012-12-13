@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 
 import me.limebyte.rain.graphics.Screen;
 import me.limebyte.rain.input.KeyboardListener;
+import me.limebyte.rain.level.Level;
+import me.limebyte.rain.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 
@@ -30,6 +32,7 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
 
     private Screen screen;
+    private Level level;
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -45,6 +48,7 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height);
         frame = new JFrame();
         keyListener = new KeyboardListener();
+        level = new RandomLevel(64, 64);
 
         addKeyListener(keyListener);
     }
@@ -104,7 +108,7 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
-        screen.render(x, y);
+        level.render(x, y, screen);
         System.arraycopy(screen.pixels, 0, pixels, 0, screen.pixels.length);
 
         Graphics g = bs.getDrawGraphics();
@@ -125,21 +129,10 @@ public class Game extends Canvas implements Runnable {
     private void update() {
         keyListener.update();
 
-        if (keyListener.left) {
-            x -= 2;
-        }
-
-        if (keyListener.right) {
-            x += 2;
-        }
-
-        if (keyListener.up) {
-            y -= 2;
-        }
-
-        if (keyListener.down) {
-            y += 2;
-        }
+        if (keyListener.up) y -= 2;
+        if (keyListener.down) y += 2;
+        if (keyListener.left) x -= 2;
+        if (keyListener.right) x += 2;
     }
 
 }
