@@ -1,32 +1,35 @@
 package me.limebyte.rain.entity.mob;
 
+import me.limebyte.rain.input.KeyboardListener;
+
 public class Player extends Mob {
 
-    public Player() {
+    private KeyboardListener input;
 
+    public Player(KeyboardListener input) {
+        this.input = input;
     }
 
-    public Player(int x, int y) {
+    public Player(KeyboardListener input, int x, int y) {
+        this(input);
         this.x = x;
         this.y = y;
     }
 
     @Override
-    public void move(int xa, int ya) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void update() {
-        // TODO Auto-generated method stub
+        int xa = 0, ya = 0;
+        if (input.up) ya--;
+        if (input.down) ya++;
+        if (input.left) xa--;
+        if (input.right) xa++;
 
+        if (xa != 0 || ya != 0) move(xa, ya);
     }
 
     @Override
     public void render() {
         // TODO Auto-generated method stub
-
     }
 
 }

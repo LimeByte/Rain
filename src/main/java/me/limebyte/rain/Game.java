@@ -11,6 +11,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import me.limebyte.rain.entity.mob.Player;
 import me.limebyte.rain.graphics.Screen;
 import me.limebyte.rain.input.KeyboardListener;
 import me.limebyte.rain.level.Level;
@@ -33,13 +34,12 @@ public class Game extends Canvas implements Runnable {
 
     private Screen screen;
     private Level level;
+    private Player player;
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     private int currentFPS = FPS;
     private int currentTPS = FPS;
-
-    private int x = 0, y = 0;
 
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale);
@@ -49,6 +49,7 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame();
         keyListener = new KeyboardListener();
         level = new RandomLevel(64, 64);
+        player = new Player(keyListener);
 
         addKeyListener(keyListener);
     }
@@ -108,7 +109,7 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
-        level.render(x, y, screen);
+        level.render(player.x, player.y, screen);
         System.arraycopy(screen.pixels, 0, pixels, 0, screen.pixels.length);
 
         Graphics g = bs.getDrawGraphics();
@@ -128,11 +129,7 @@ public class Game extends Canvas implements Runnable {
 
     private void update() {
         keyListener.update();
-
-        if (keyListener.up) y -= 2;
-        if (keyListener.down) y += 2;
-        if (keyListener.left) x -= 2;
-        if (keyListener.right) x += 2;
+        player.update();
     }
 
 }
