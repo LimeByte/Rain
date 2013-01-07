@@ -1,5 +1,7 @@
 package me.limebyte.rain.entity.mob;
 
+import me.limebyte.rain.graphics.Screen;
+import me.limebyte.rain.graphics.Sprite;
 import me.limebyte.rain.input.KeyboardListener;
 
 public class Player extends Mob {
@@ -28,8 +30,8 @@ public class Player extends Mob {
     }
 
     @Override
-    public void render() {
-        // TODO Auto-generated method stub
+    public void render(Screen screen) {
+        screen.renderPlayer(x, y, Sprite.player0);
     }
 
 }
