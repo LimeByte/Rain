@@ -14,7 +14,7 @@ public class Sprite {
     public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.terrain);
 
     /** Entity **/
-    public static Sprite player0 = new Sprite(16, 0, 0, SpriteSheet.sprites);
+    public static Sprite player0 = new Sprite(32, 0, 0, SpriteSheet.sprites);
     public static Sprite player1 = new Sprite(16, 0, 1, SpriteSheet.sprites);
     public static Sprite player2 = new Sprite(16, 0, 2, SpriteSheet.sprites);
     public static Sprite player3 = new Sprite(16, 0, 3, SpriteSheet.sprites);
