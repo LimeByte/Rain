@@ -17,6 +17,7 @@ import me.limebyte.rain.graphics.Sprite;
 import me.limebyte.rain.input.KeyboardListener;
 import me.limebyte.rain.level.Level;
 import me.limebyte.rain.level.RandomLevel;
+import me.limebyte.rain.sound.Song;
 
 public class Game extends Canvas implements Runnable {
 
@@ -36,6 +37,7 @@ public class Game extends Canvas implements Runnable {
     private Screen screen;
     private Level level;
     private Player player;
+    private Song song;
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -51,6 +53,7 @@ public class Game extends Canvas implements Runnable {
         keyListener = new KeyboardListener();
         level = new RandomLevel(64, 64);
         player = new Player(keyListener);
+        song = new Song("/music/oots.wav", true);
 
         addKeyListener(keyListener);
     }
@@ -59,10 +62,12 @@ public class Game extends Canvas implements Runnable {
         running = true;
         thread = new Thread(this, "Display");
         thread.start();
+        song.play();
     }
 
     public synchronized void stop() {
         running = false;
+        song.stop();
         try {
             thread.join();
         } catch (final InterruptedException e) {
