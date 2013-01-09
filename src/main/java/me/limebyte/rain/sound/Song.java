@@ -32,8 +32,16 @@ public class Song {
         }
     }
 
+    public void pause() {
+        clip.stop();
+    }
+
     public void stop() {
         clip.stop();
         clip.setFramePosition(0);
+    }
+
+    public boolean isPlaying() {
+        return clip.isActive();
     }
 }
