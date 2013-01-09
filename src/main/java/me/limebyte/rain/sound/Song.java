@@ -9,7 +9,7 @@ public class Song {
 
     private Clip clip;
     private boolean loop;
-    private static final float volume = -8.0f;
+    private static final float volume = 0f;
     private FloatControl gain;
     private Thread fader;
     private boolean fading = false;
