@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 
 import me.limebyte.rain.entity.mob.Player;
 import me.limebyte.rain.graphics.Screen;
-import me.limebyte.rain.graphics.Sprite;
 import me.limebyte.rain.input.KeyboardListener;
 import me.limebyte.rain.level.Level;
 import me.limebyte.rain.level.RandomLevel;
@@ -115,8 +114,8 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
-        int xScroll = player.x - screen.width / 2 + Sprite.player.SIZE / 2;
-        int yScroll = player.y - screen.height / 2 + Sprite.player.SIZE / 2;
+        int xScroll = player.x - screen.width / 2;
+        int yScroll = player.y - screen.height / 2;
         level.render(xScroll, yScroll, screen);
         player.render(screen);
         System.arraycopy(screen.pixels, 0, pixels, 0, screen.pixels.length);

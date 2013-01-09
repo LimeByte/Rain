@@ -7,6 +7,7 @@ import me.limebyte.rain.input.KeyboardListener;
 public class Player extends Mob {
 
     private KeyboardListener input;
+    private static final Sprite sprite = Sprite.player;
 
     public Player(KeyboardListener input) {
         this.input = input;
@@ -31,7 +32,7 @@ public class Player extends Mob {
 
     @Override
     public void render(Screen screen) {
-        screen.renderPlayer(x, y, Sprite.player);
+        screen.renderPlayer(x - sprite.SIZE / 2, y - sprite.SIZE / 2, sprite);
     }
 
 }
