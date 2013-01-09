@@ -61,6 +61,7 @@ public class Game extends Canvas implements Runnable {
         running = true;
         thread = new Thread(this, "Display");
         thread.start();
+        song.play();
     }
 
     public synchronized void stop() {

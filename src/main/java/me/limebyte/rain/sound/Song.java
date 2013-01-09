@@ -9,6 +9,10 @@ public class Song {
 
     private Clip clip;
     private boolean loop;
+    private static final float volume = -8.0f;
+    private FloatControl gain;
+    private Thread fader;
+    private boolean fading = false;
 
     public Song(String path, boolean loop) {
         this.loop = loop;
@@ -17,14 +21,56 @@ public class Song {
             sample = AudioSystem.getAudioInputStream(Song.class.getResource(path));
             clip = AudioSystem.getClip();
             clip.open(sample);
-            FloatControl gain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gain.setValue(-8.0f);
+            gain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         } catch (Exception e) {
             System.err.println("Failed to load song.");
         }
     }
 
+    private void fade(final FloatControl gain, final double seconds, final float to, final float from) {
+        final float dif = to - from;
+        gain.setValue(from);
+        fader = new Thread(new Runnable() {
+            public void run() {
+                fading = true;
+                for (float i = 0; i < seconds * 1000; i++) {
+                    if (!fading) break;
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException ex) {
+
+                    }
+                    gain.setValue((float) (from + dif * Math.sqrt(i / seconds / 1000)));
+                }
+                fading = false;
+            }
+        });
+        fader.start();
+    }
+
+    private void fadeIn(float from) {
+        fade(gain, 2, volume, from);
+    }
+
+    private void fadeOut(float to) {
+        fade(gain, 2, to, volume);
+    }
+
     public void play() {
+        resume();
+        fadeIn(-50f);
+    }
+
+    public void pause() {
+        fading = false;
+        try {
+            fader.join();
+        } catch (InterruptedException e) {
+        }
+        clip.stop();
+    }
+
+    public void resume() {
         if (loop) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         } else {
@@ -32,11 +78,12 @@ public class Song {
         }
     }
 
-    public void pause() {
-        clip.stop();
-    }
-
     public void stop() {
+        fadeOut(-80f);
+        try {
+            fader.join();
+        } catch (InterruptedException e) {
+        }
         clip.stop();
         clip.setFramePosition(0);
     }

@@ -23,7 +23,7 @@ public class KeyboardListener implements KeyListener {
             if (Game.song.isPlaying()) {
                 Game.song.pause();
             } else {
-                Game.song.play();
+                Game.song.resume();
             }
             musicKeyPressed = true;
         }
