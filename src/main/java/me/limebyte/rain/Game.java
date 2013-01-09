@@ -134,13 +134,18 @@ public class Game extends Canvas implements Runnable {
         // Nametag
         int tagWidth = fMetrics.stringWidth(player.getName()) + 12;
         int tagHeight = fMetrics.getHeight() + 12;
-        if (tagWidth < 100) tagWidth = 100;
-        int tagX = getWidth() / 2;
-        int tagY = getHeight() / 2 - tagHeight / 2 - 66;
+        int tagX = screen.width / 2 * scale;
+        int tagY = screen.height / 2 * scale - 80;
+
         g.setColor(new Color(0f, 0f, 0f, 0.3f));
-        g.fillRect(tagX - tagWidth / 2, tagY, tagWidth, tagHeight);
+        if (tagWidth < 100) {
+            g.fillRect(tagX - 50, tagY, 100, tagHeight);
+        } else {
+            g.fillRect(tagX - tagWidth / 2, tagY, tagWidth, tagHeight);
+        }
+
         g.setColor(Color.WHITE);
-        g.drawString(player.getName(), tagX - 16, tagY + 18);
+        g.drawString(player.getName(), tagX - tagWidth / 2 + 6, tagY + tagHeight / 2 + 4);
 
         g.dispose();
         bs.show();
