@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -51,7 +52,7 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame();
         keyListener = new KeyboardListener();
         level = new RandomLevel(64, 64);
-        player = new Player(keyListener);
+        player = new Player(System.getProperty("user.name"), keyListener);
 
         addKeyListener(keyListener);
     }
@@ -60,7 +61,6 @@ public class Game extends Canvas implements Runnable {
         running = true;
         thread = new Thread(this, "Display");
         thread.start();
-        song.play();
     }
 
     public synchronized void stop() {
@@ -123,12 +123,24 @@ public class Game extends Canvas implements Runnable {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
         g.setColor(new Color(0f, 0f, 0f, 0.7f));
-        g.fillRect(5, 5, 150, 50);
+        g.fillRect(5, 5, 150, 54);
 
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 12));
+        FontMetrics fMetrics = g.getFontMetrics();
         g.drawString(NAME + " - Prototype", 10, 20);
-        g.drawString(currentFPS + " fps, " + currentTPS + " ticks", 10, 40);
+        g.drawString(currentFPS + " fps, " + currentTPS + " ticks", 10, 36);
+
+        // Nametag
+        int tagWidth = fMetrics.stringWidth(player.getName()) + 12;
+        int tagHeight = fMetrics.getHeight() + 12;
+        if (tagWidth < 100) tagWidth = 100;
+        int tagX = getWidth() / 2;
+        int tagY = getHeight() / 2 - tagHeight / 2 - 66;
+        g.setColor(new Color(0f, 0f, 0f, 0.3f));
+        g.fillRect(tagX - tagWidth / 2, tagY, tagWidth, tagHeight);
+        g.setColor(Color.WHITE);
+        g.drawString(player.getName(), tagX - 16, tagY + 18);
 
         g.dispose();
         bs.show();
