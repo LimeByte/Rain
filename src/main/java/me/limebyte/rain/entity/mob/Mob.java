@@ -6,14 +6,11 @@ import me.limebyte.rain.graphics.Sprite;
 public abstract class Mob extends Entity {
 
     protected Sprite sprite;
-    protected byte dir = 0;
+    protected Direction dir = Direction.NONE;
     protected boolean moving = false;
 
     public void move(int xa, int ya) {
-        if (xa > 0) dir = 1;
-        if (xa < 0) dir = 3;
-        if (ya > 0) dir = 2;
-        if (ya < 0) dir = 0;
+        dir = Direction.getByMovement(xa, ya);
 
         if (!collision()) {
             x += xa;
@@ -23,6 +20,18 @@ public abstract class Mob extends Entity {
 
     private boolean collision() {
         return false;
+    }
+
+    protected enum Direction {
+        NONE, UP, RIGHT, DOWN, LEFT;
+
+        protected static Direction getByMovement(int xa, int ya) {
+            if (ya < 0) return UP;
+            if (xa > 0) return RIGHT;
+            if (ya > 0) return DOWN;
+            if (xa < 0) return LEFT;
+            return NONE;
+        }
     }
 
 }

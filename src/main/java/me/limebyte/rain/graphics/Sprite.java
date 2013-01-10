@@ -16,6 +16,10 @@ public class Sprite {
 
     /** Entity **/
     public static Sprite player = new Sprite(32, 0, 0, SpriteSheet.foster);
+    public static Sprite playerUp = new Sprite(32, 0, 1, SpriteSheet.foster);
+    public static Sprite playerRight = new Sprite(32, 0, 2, SpriteSheet.foster);
+    public static Sprite playerDown = new Sprite(32, 0, 3, SpriteSheet.foster);
+    public static Sprite playerLeft = new Sprite(32, 0, 4, SpriteSheet.foster);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         this.SIZE = size;

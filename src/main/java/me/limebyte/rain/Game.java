@@ -52,7 +52,7 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame();
         keyListener = new KeyboardListener();
         level = new RandomLevel(64, 64);
-        player = new Player(System.getProperty("user.name"), keyListener);
+        player = new Player("Foster", keyListener);
 
         addKeyListener(keyListener);
     }
@@ -135,12 +135,12 @@ public class Game extends Canvas implements Runnable {
         // Nametag
         int tagWidth = fMetrics.stringWidth(player.getName()) + 12;
         int tagHeight = fMetrics.getHeight() + 12;
-        int tagX = screen.width / 2 * scale;
+        int tagX = screen.width / 2 * scale + 6;
         int tagY = screen.height / 2 * scale - 80;
 
         g.setColor(new Color(0f, 0f, 0f, 0.3f));
         if (tagWidth < 100) {
-            g.fillRect(tagX - 50, tagY, 100, tagHeight);
+            g.fillRect(tagX - 50, tagY, 96, tagHeight);
         } else {
             g.fillRect(tagX - tagWidth / 2, tagY, tagWidth, tagHeight);
         }
