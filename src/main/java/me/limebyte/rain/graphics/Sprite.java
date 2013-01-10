@@ -15,7 +15,7 @@ public class Sprite {
     public static Sprite stone = new Sprite(16, 1, 0, SpriteSheet.terrain);
 
     /** Entity **/
-    public static Sprite player = new Sprite(32, 0, 0, SpriteSheet.sprites);
+    public static Sprite player = new Sprite(32, 0, 0, SpriteSheet.foster);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         this.SIZE = size;
