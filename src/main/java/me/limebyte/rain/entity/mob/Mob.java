@@ -26,10 +26,10 @@ public abstract class Mob extends Entity {
         NONE, UP, RIGHT, DOWN, LEFT;
 
         protected static Direction getByMovement(int xa, int ya) {
-            if (ya < 0) return UP;
-            if (xa > 0) return RIGHT;
-            if (ya > 0) return DOWN;
             if (xa < 0) return LEFT;
+            if (xa > 0) return RIGHT;
+            if (ya < 0) return UP;
+            if (ya > 0) return DOWN;
             return NONE;
         }
     }
