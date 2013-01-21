@@ -5,14 +5,14 @@ import java.awt.Color;
 public class Sprite {
 
     public final int SIZE;
-    private int x, y;
+    protected int x, y;
     public int[] pixels;
-    private SpriteSheet sheet;
+    protected SpriteSheet sheet;
 
     /** Terrain **/
     public static Sprite voidSprite = new Sprite(16, new Color(0x1B87E0));
     public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.terrain);
-    public static Sprite stone = new Sprite(16, 1, 0, SpriteSheet.terrain);
+    public static Sprite rock = new Sprite(16, 1, 0, SpriteSheet.terrain);
 
     /** Entity **/
     public static Sprite player = new Sprite(32, 0, 0, SpriteSheet.foster);

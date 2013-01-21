@@ -16,7 +16,7 @@ import me.limebyte.rain.entity.mob.Player;
 import me.limebyte.rain.graphics.Screen;
 import me.limebyte.rain.input.KeyboardListener;
 import me.limebyte.rain.level.Level;
-import me.limebyte.rain.level.RandomLevel;
+import me.limebyte.rain.level.LoadedLevel;
 import me.limebyte.rain.sound.Song;
 
 public class Game extends Canvas implements Runnable {
@@ -27,7 +27,7 @@ public class Game extends Canvas implements Runnable {
     public static int height = width / 16 * 9;
     public static int scale = 3;
     public static final String NAME = "Rain";
-    private static final int TPS = 60;
+    public static final int TPS = 60;
 
     private Thread thread;
     protected JFrame frame;
@@ -51,7 +51,7 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height);
         frame = new JFrame();
         keyListener = new KeyboardListener();
-        level = new RandomLevel(64, 64);
+        level = new LoadedLevel("/levels/test.png");
         player = new Player("Foster", keyListener);
 
         addKeyListener(keyListener);
