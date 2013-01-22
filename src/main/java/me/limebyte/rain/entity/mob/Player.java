@@ -1,14 +1,15 @@
 package me.limebyte.rain.entity.mob;
 
 import me.limebyte.rain.graphics.Screen;
+import me.limebyte.rain.graphics.Screen.TextAlign;
 import me.limebyte.rain.graphics.Sprite;
 import me.limebyte.rain.input.KeyboardListener;
 
 public class Player extends Mob {
 
     private KeyboardListener input;
-    private String name;
-    private Sprite sprite = Sprite.playerLeft;
+    public String name;
+    public Sprite sprite = Sprite.playerLeft;
 
     public Player(String name, KeyboardListener input) {
         this.name = name;
@@ -45,11 +46,14 @@ public class Player extends Mob {
                 break;
         }
 
-        screen.renderPlayer(x - sprite.SIZE / 2, y - sprite.SIZE / 2, sprite);
+        int halfSprite = sprite.size / 2;
+        int yp = y - halfSprite;
+        screen.renderText(x, yp - sprite.size / 3, name, TextAlign.CENTER);
+        screen.render(x - halfSprite, yp, sprite);
     }
 
     @Override
-    public void update() {
+    public void tick() {
         int xa = 0, ya = 0;
         if (input.up) {
             ya--;

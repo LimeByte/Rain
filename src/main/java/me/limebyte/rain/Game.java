@@ -4,7 +4,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -14,6 +13,7 @@ import javax.swing.JFrame;
 
 import me.limebyte.rain.entity.mob.Player;
 import me.limebyte.rain.graphics.Screen;
+import me.limebyte.rain.graphics.Screen.TextAlign;
 import me.limebyte.rain.input.KeyboardListener;
 import me.limebyte.rain.level.Level;
 import me.limebyte.rain.level.LoadedLevel;
@@ -80,7 +80,7 @@ public class Game extends Canvas implements Runnable {
         double delta = 0;
         final double ns = 1000000000 / TPS;
         int frames = 0;
-        int updates = 0;
+        int ticks = 0;
 
         while (running) {
             long currentTime = System.nanoTime();
@@ -88,8 +88,8 @@ public class Game extends Canvas implements Runnable {
             time = currentTime;
 
             while (delta > 0) {
-                update();
-                updates++;
+                tick();
+                ticks++;
                 delta--;
             }
             render();
@@ -97,9 +97,9 @@ public class Game extends Canvas implements Runnable {
 
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                currentTPS = updates;
+                currentTPS = ticks;
                 currentFPS = frames;
-                updates = 0;
+                ticks = 0;
                 frames = 0;
             }
         }
@@ -117,6 +117,7 @@ public class Game extends Canvas implements Runnable {
         int xScroll = player.x - screen.width / 2;
         int yScroll = player.y - screen.height / 2;
         level.render(xScroll, yScroll, screen);
+        screen.renderText(290, 280, "The Dead Lake", TextAlign.CENTER);
         player.render(screen);
         System.arraycopy(screen.pixels, 0, pixels, 0, screen.pixels.length);
 
@@ -128,33 +129,16 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 12));
-        FontMetrics fMetrics = g.getFontMetrics();
         g.drawString(NAME + " - Prototype", 10, 20);
         g.drawString(currentFPS + " fps, " + currentTPS + " ticks", 10, 36);
-
-        // Nametag
-        int tagWidth = fMetrics.stringWidth(player.getName()) + 12;
-        int tagHeight = fMetrics.getHeight() + 12;
-        int tagX = screen.width / 2 * scale + 6;
-        int tagY = screen.height / 2 * scale - 80;
-
-        g.setColor(new Color(0f, 0f, 0f, 0.3f));
-        if (tagWidth < 100) {
-            g.fillRect(tagX - 50, tagY, 96, tagHeight);
-        } else {
-            g.fillRect(tagX - tagWidth / 2, tagY, tagWidth, tagHeight);
-        }
-
-        g.setColor(Color.WHITE);
-        g.drawString(player.getName(), tagX - tagWidth / 2 + 6, tagY + tagHeight / 2 + 4);
 
         g.dispose();
         bs.show();
     }
 
-    private void update() {
-        keyListener.update();
-        player.update();
+    private void tick() {
+        keyListener.tick();
+        player.tick();
     }
 
 }

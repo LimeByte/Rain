@@ -14,6 +14,7 @@ public class SpriteSheet {
     public static SpriteSheet terrain = new SpriteSheet("/textures/terrain.png");
     public static SpriteSheet sprites = new SpriteSheet("/textures/sprites.png");
     public static SpriteSheet foster = new SpriteSheet("/textures/mob/foster.png");
+    public static SpriteSheet font = new SpriteSheet("/textures/font.png");
 
     public SpriteSheet(String path) {
         this.path = path;

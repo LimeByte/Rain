@@ -16,7 +16,9 @@ public abstract class Tile {
         this.sprite = sprite;
     }
 
-    public abstract void render(int x, int y, Screen screen);
+    public void render(int x, int y, Screen screen) {
+        screen.render(x << 4, y << 4, sprite);
+    }
 
     public abstract boolean isSolid();
 

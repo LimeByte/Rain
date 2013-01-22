@@ -12,7 +12,7 @@ public abstract class Entity {
     protected Level level;
     protected final Random random = new Random();
 
-    public abstract void update();
+    public abstract void tick();
 
     public abstract void render(Screen screen);
 
