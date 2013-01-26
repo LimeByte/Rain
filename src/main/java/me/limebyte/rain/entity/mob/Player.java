@@ -4,22 +4,25 @@ import me.limebyte.rain.graphics.Screen;
 import me.limebyte.rain.graphics.Screen.TextAlign;
 import me.limebyte.rain.graphics.Sprite;
 import me.limebyte.rain.input.KeyboardListener;
+import me.limebyte.rain.level.Level;
+import me.limebyte.rain.level.Location;
+import me.limebyte.rain.level.tile.Tile;
 
 public class Player extends Mob {
 
     private KeyboardListener input;
     public String name;
     public Sprite sprite = Sprite.playerLeft;
+    private boolean damaged = false;
 
-    public Player(String name, KeyboardListener input) {
-        this.name = name;
-        this.input = input;
+    public Player(String name, Level level, KeyboardListener input) {
+        this(name, new Location(level, 0, 0), input);
     }
 
-    public Player(String name, KeyboardListener input, int x, int y) {
-        this(name, input);
-        this.x = x;
-        this.y = y;
+    public Player(String name, Location location, KeyboardListener input) {
+        this.name = name;
+        this.input = input;
+        this.location = location;
     }
 
     public String getName() {
@@ -46,10 +49,12 @@ public class Player extends Mob {
                 break;
         }
 
+        if (damaged) sprite = sprite.tinted(0xffff2222);
+
         int halfSprite = sprite.size / 2;
-        int yp = y - halfSprite;
-        screen.renderText(x, yp - sprite.size / 3, name, TextAlign.CENTER);
-        screen.render(x - halfSprite, yp, sprite);
+        int yp = location.getY() - halfSprite;
+        screen.renderText(location.getX(), yp - sprite.size / 3, name, TextAlign.CENTER);
+        screen.render(location.getX() - halfSprite, yp, sprite);
     }
 
     @Override
@@ -71,6 +76,8 @@ public class Player extends Mob {
         if (xa != 0 || ya != 0) {
             move(xa, ya);
         }
+
+        damaged = location.getTile() == Tile.lava;
     }
 
 }

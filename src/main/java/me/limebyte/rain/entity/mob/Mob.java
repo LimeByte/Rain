@@ -2,6 +2,8 @@ package me.limebyte.rain.entity.mob;
 
 import me.limebyte.rain.entity.Entity;
 import me.limebyte.rain.graphics.Sprite;
+import me.limebyte.rain.level.Direction;
+import me.limebyte.rain.level.Level;
 
 public abstract class Mob extends Entity {
 
@@ -12,26 +14,17 @@ public abstract class Mob extends Entity {
     public void move(int xa, int ya) {
         dir = Direction.getByMovement(xa, ya);
 
-        if (!collision()) {
-            x += xa;
-            y += ya;
+        if (!collision(xa, ya)) {
+            location.add(xa, ya);
         }
     }
 
-    private boolean collision() {
-        return false;
-    }
+    private boolean collision(int xa, int ya) {
+        Level level = location.getLevel();
+        int x = location.getTileX();
+        int y = location.getTileY();
 
-    protected enum Direction {
-        NONE, UP, RIGHT, DOWN, LEFT;
-
-        protected static Direction getByMovement(int xa, int ya) {
-            if (xa < 0) return LEFT;
-            if (xa > 0) return RIGHT;
-            if (ya < 0) return UP;
-            if (ya > 0) return DOWN;
-            return NONE;
-        }
+        return level.getTile(x + xa, y + ya).isSolid();
     }
 
 }

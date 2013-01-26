@@ -35,7 +35,7 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
 
     private Screen screen;
-    private Level level;
+    public Level level;
     private Player player;
     public static final Song song = new Song("/music/oots.wav", true);
 
@@ -51,8 +51,8 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height);
         frame = new JFrame();
         keyListener = new KeyboardListener();
-        level = new LoadedLevel("/levels/test.png");
-        player = new Player("Foster", keyListener);
+        level = new LoadedLevel("Test", "/levels/test.png");
+        player = new Player("Foster", level, keyListener);
 
         addKeyListener(keyListener);
     }
@@ -114,8 +114,8 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
-        int xScroll = player.x - screen.width / 2;
-        int yScroll = player.y - screen.height / 2;
+        int xScroll = player.getLocation().getX() - screen.width / 2;
+        int yScroll = player.getLocation().getY() - screen.height / 2;
         level.render(xScroll, yScroll, screen);
         screen.renderText(290, 280, "The Dead Lake", TextAlign.CENTER);
         player.render(screen);
@@ -139,6 +139,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         keyListener.tick();
         player.tick();
+        level.tick();
     }
 
 }

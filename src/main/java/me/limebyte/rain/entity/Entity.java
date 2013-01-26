@@ -3,13 +3,12 @@ package me.limebyte.rain.entity;
 import java.util.Random;
 
 import me.limebyte.rain.graphics.Screen;
-import me.limebyte.rain.level.Level;
+import me.limebyte.rain.level.Location;
 
 public abstract class Entity {
 
-    public int x, y;
+    public Location location;
     private boolean removed = false;
-    protected Level level;
     protected final Random random = new Random();
 
     public abstract void tick();
@@ -23,5 +22,9 @@ public abstract class Entity {
 
     public boolean isRemoved() {
         return removed;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }

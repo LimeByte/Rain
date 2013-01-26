@@ -1,6 +1,5 @@
 package me.limebyte.rain.graphics;
 
-
 public class Screen {
 
     public int width, height;
@@ -30,6 +29,23 @@ public class Screen {
                 if (xa < -sprite.size || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 int colour = sprite.pixels[x + y * sprite.size];
+                if (colour != 0x00) {
+                    pixels[xa + ya * width] = colour;
+                }
+            }
+        }
+    }
+
+    public void render(int xp, int yp, int w, int h, int[] pixels) {
+        xp -= xOffset;
+        yp -= yOffset;
+        for (int y = 0; y < h; y++) {
+            int ya = yp + y;
+            for (int x = 0; x < w; x++) {
+                int xa = xp + x;
+                if (xa < -w || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < 0) xa = 0;
+                int colour = pixels[x + y * h];
                 if (colour != 0x00) {
                     pixels[xa + ya * width] = colour;
                 }

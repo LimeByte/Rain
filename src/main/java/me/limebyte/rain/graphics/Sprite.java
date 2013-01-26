@@ -2,7 +2,7 @@ package me.limebyte.rain.graphics;
 
 import java.awt.Color;
 
-public class Sprite {
+public class Sprite implements Cloneable {
 
     public final int size;
     protected int x, y;
@@ -13,6 +13,8 @@ public class Sprite {
     public static Sprite voidSprite = new Sprite(16, new Color(0x1B87E0));
     public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.terrain);
     public static Sprite rock = new Sprite(16, 1, 0, SpriteSheet.terrain);
+    public static Sprite water = new AnimatedSprite(16, 11, 39, SpriteSheet.terrain, 0.2);
+    public static Sprite lava = new AnimatedSprite(16, 14, 20, SpriteSheet.terrain, 0.2);
 
     /** Entity **/
     public static Sprite player = new Sprite(32, 0, 0, SpriteSheet.foster);
@@ -36,6 +38,11 @@ public class Sprite {
         loadColour(colour);
     }
 
+    private Sprite(int size, int[] pixels) {
+        this.size = size;
+        this.pixels = pixels;
+    }
+
     private void load() {
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
@@ -50,5 +57,19 @@ public class Sprite {
                 pixels[x + y * size] = colour.getRGB();
             }
         }
+    }
+
+    public Sprite tinted(int colour) {
+        int[] tinted = new int[size * size];
+
+        for (int i = 0; i < pixels.length; i++) {
+            if (pixels[i] != 0x00) {
+                tinted[i] = pixels[i] & colour;
+            } else {
+                tinted[i] = pixels[i];
+            }
+        }
+
+        return new Sprite(size, tinted);
     }
 }
